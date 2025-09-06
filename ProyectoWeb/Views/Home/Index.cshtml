@@ -1,0 +1,50 @@
+﻿@model ProyectoWeb.Models.ViewModels.CategoriasVM
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<div class="card">
+    <div class="card-body">
+		<h5 class="card-title">Inventario de Tienda</h5>
+        <form asp-action="Index" method="get">
+            <label for="codigoCategoria">Categoría:</label>
+            <select  asp-for="CodigoCategoria" asp-items="Model.Categorias" id="codigoCategoria" onchange="this.form.submit()">
+                <option value="">-- Seleccione una categoría --</option>
+            </select>
+        </form>
+       <div class="card-body">
+            @if (Model.Productos.Any())
+            {
+                <h3 class="mt-4">Productos mas vendidos en el año 2019 según </h3>
+                <table class="table table-striped table-bordered table-hover mt-3 shadow-sm">
+                    <thead class="table-dark">
+                        <tr>
+                            <th style="text-align:center;">#</th>
+                            <th>Nombre del producto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.Productos.Count; i++)
+                        {
+                            <tr>
+                                <td style="text-align:center;">@(i + 1)</td>
+                                <td>@Model.Productos[i]</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <div class="alert alert-warning mt-3">
+                    <i class="bi bi-exclamation-triangle-fill"></i>
+                    No hay productos para mostrar.
+                </div>
+            }
+
+       </div>
+
+       </div>
+</div>
